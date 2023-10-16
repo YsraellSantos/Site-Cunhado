@@ -1,139 +1,85 @@
-@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;1,100;1,200;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Jost:ital,wght@0,100;1,100;1,200;1,900&display=swap');
-
-
-:root{
-    --padrao : font-family: 'Jost', sans-serif;
-    --media:  'Abril Fatface', cursive;
-
-}
-
-
-/* Estilo para o corpo da página */
+/* Estilo global para o corpo da página */
 body {
-
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
     margin: 0;
     padding: 0;
-    background-color:rgb(71,39,76);
 }
 
-h1.cabecalho{
-   margin: auto;
-   padding:3vh;
-   color: rgb(71,39,76);
-   font-family: var(--media);
-   font-size: 80px;
-   font-weight: bold;  
-}
-h2.cabecalho2{
-    font-family: var(--padrao);
-    font-size: 80px;
-    margin-top: 10px;
-    color: #25d366;
-    margin-left: 90px;
-
-}
-
-section.img1{
-    height: 100vh; 
-    background-image: url(Imagens/media.jpg);
+/* Estilo para a seção da imagem e cabeçalhos */
+.img1 {
+    background-image: url('Imagens/media.jpg');
     background-size: cover;
-    background-position: center center;
-    background-attachment: fixed;
-    box-shadow: inset 0px 0px 13px 0px black;
-    margin-bottom: -100px;
+    text-align: center;
+    padding: 100px 0;
+    color: white;
 }
 
-section > p{
-    display: flex;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-size: 40px;
-    margin-left: 20vh;
-    margin-top: 50vh
-    
+.cabecalho {
+    font-size: 36px;
+    margin: 0;
 }
 
-.bottom{
-    color: #25d366;
-}
-
-/* Estilo para a seção de produtos */
-#products {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.cabecalho2 {
+    font-size: 24px;
+    margin: 0;
 }
 
 /* Estilo para a lista de produtos */
+#products {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin: 20px;
+}
+
+#products h2 {
+    font-size: 24px;
+}
+
 #products ul {
     list-style-type: none;
     padding: 0;
 }
 
-/* Estilo para os itens de produto */
 #products li {
+    border: 1px solid #ccc;
+    margin: 10px 0;
+    padding: 10px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 50px 0;
-    border-bottom: 1px solid #ddd;
 }
 
-/* Estilo para os botões Adicionar ao Carrinho */
 #products button {
     background-color: #007bff;
-    color: #fff;
+    color: white;
     border: none;
     padding: 5px 10px;
-    border-radius: 5px;
     cursor: pointer;
 }
 
 /* Estilo para o carrinho de compras */
 #cart {
-    margin-top: 20px;
-    background-color: #fff;
+    background-color: white;
     padding: 20px;
-    border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Estilo para a lista de itens do carrinho */
-#cart ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-/* Estilo para os itens do carrinho */
-#cart li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
-}
-
-/* Estilo para os botões Remover */
-#cart button {
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
     border-radius: 5px;
+    margin: 20px;
+}
+
+#cart h2 {
+    font-size: 24px;
+}
+
+#cart p {
+    font-weight: bold;
+}
+
+#cart button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
     cursor: pointer;
 }
-
-/* Estilo para o botão Enviar via WhatsApp */
-#cart button:last-child {
-    background-color: #25d366;
-}
-
-/* Estilo para o rodapé */
-footer {
-    text-align: center;
-    color: #666;
-    padding: 20px;
-    background-color: #fff;
-    margin-top: 80%;
-} 
