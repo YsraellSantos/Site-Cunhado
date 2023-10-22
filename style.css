@@ -85,21 +85,33 @@ body {
 }
 
 /* Media query para dispositivos móveis */
-@media (max-width: 500px) {
+/* Media query para dispositivos móveis */
+@media (max-width: 796px) {
     .img1 {
-        padding: 50px 0;
+        padding: 100px 0; /* Aumente o padding para centralizar e aumentar o tamanho */
+        text-align: center; /* Centralizar o texto */
+    }
+
+    .cabecalho {
+        font-size: 30px; /* Aumente o tamanho da fonte do cabeçalho */
+    }
+
+    .cabecalho2 {
+        font-size: 20px; /* Aumente o tamanho da fonte do cabeçalho2 */
     }
 
     #products {
-        padding: 10px;
+        padding: 20px;
+        text-align: center; /* Centralizar o conteúdo */
     }
 
     #products h2 {
-        font-size: 20px;
+        font-size: 22px; /* Aumente o tamanho da fonte */
     }
 
     #products li {
         flex-direction: column;
+        align-items: center; /* Centralizar os itens verticalmente */
     }
 
     #products button {
@@ -107,16 +119,17 @@ body {
     }
 
     #cart {
-        padding: 10px;
+        padding: 20px;
+        text-align: center; /* Centralizar o conteúdo */
     }
 
     #cart h2 {
-        font-size: 20px;
+        font-size: 22px; /* Aumente o tamanho da fonte */
     }
-    
+
     /* Alinhar rótulos e caixas de marcação */
     .product-item label {
         display: block;
-        margin-top: 5px;
+        margin-top: 10px; /* Aumente o espaçamento entre os rótulos */
     }
 }
