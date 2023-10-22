@@ -1,46 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <title>Minha Loja Virtual</title>
-
     <link rel="stylesheet" href="style.css">
-
+</head>
 <body>
-
    <section class="img1">
-    
-
         <h1 class="cabecalho">Açaí</h1>
-        <h2  class="cabecalho2">Santana</h2>
-  
-       
-
+        <h2 class="cabecalho2">Santana</h2>
    </section>
- 
 
-    <!-- Exibição de produtos -->
-    <div id="products">
+       <!-- Exibição de produtos -->
+       <div id="products">
         <h2>Produtos Disponíveis</h2>
         <ul>
             <li>
-                <span> Açai  P - $10</span>
-                <!-- <img src="Imagens/copo.jpg" alt=""> -->
-                <button onclick="addToCart('Produto 1', 10)">Adicionar ao Carrinho</button>
+                <span>Açaí P - $10</span>
+                <label for="granolaP">Granola</label>
+                <input type="checkbox" id="granolaP" value="1.50"> <!-- Alterado o valor para 1,50 -->
+                <label for="condensadoP">Leite Condensado</label>
+                <input type="checkbox" id="condensadoP" value="1.50"> <!-- Alterado o valor para 1,50 -->
+                <button onclick="addToCart('Açaí P', 10)">Adicionar ao Carrinho</button>
             </li>
             <li>
-                <span> Açai M - $13</span>
-                <!-- <img src="Imagens/capitaoc1.jpg" alt=""> -->
-                <button onclick="addToCart('Produto 2', 13)">Adicionar ao Carrinho</button>
+                <span>Açaí M - $13</span>
+                <label for="granolaM">Granola</label>
+                <input type="checkbox" id="granolaM" value="1.50"> <!-- Alterado o valor para 1,50 -->
+                <label for="condensadoM">Leite Condensado</label>
+                <input type="checkbox" id="condensadoM" value="1.50"> <!-- Alterado o valor para 1,50 -->
+                <button onclick="addToCart('Açaí M', 13)">Adicionar ao Carrinho</button>
             </li>
             <li>
-                <span> Açai G - $15</span>
-                <!-- <img class="ult" src="Imagens/capitaocabanau.jpg" alt=""> -->
-                <button onclick="addToCart('Produto 3', 15)">Adicionar ao Carrinho</button>
+                <span>Açaí G - $15</span>
+                <label for="granolaG">Granola</label>
+                <input type="checkbox" id="granolaG" value="1.50">
+                <label for="condensadoG">Leite Condensado</label>
+                <input type="checkbox" id="condensadoG" value="1.50">
+                <button onclick="addToCart('Açaí G', 15)">Adicionar ao Carrinho</button>
             </li>
-          
+            
+        </ul>
     </div>
 
+    </div>
 
     <!-- Carrinho de compras -->
     <div id="cart">
@@ -52,83 +54,90 @@
         <button onclick="sendWhatsAppMessage('7996005651')">Enviar via WhatsApp</button>
     </div>
 
- 
+    <script>
+        const cart = [];
+        let total = 0;
 
-   <script>
-    // Variáveis para armazenar o carrinho de compras e o total
-    const cart = [];
-    let total = 0;
+        function addToCart(nomeProduto, preço) {
+            const complementosSelecionados = [];
 
-    // Função para adicionar um item ao carrinho
-    function addToCart(nomeProduto, preço) {
-        // Verifica se o item já está no carrinho
-        const itemExistente = cart.find(item => item.nome === nomeProduto);
+            // Verifica quais complementos foram selecionados
+            const granolaCheckbox = document.getElementById(`granola${nomeProduto[5]}`);
+            if (granolaCheckbox.checked) {
+                complementosSelecionados.push({ nome: 'Granola', preço: parseFloat(granolaCheckbox.value) });
+            }
 
-        if (itemExistente) {
-            // Se o item já existe, aumente a quantidade em vez de adicioná-lo novamente
-            itemExistente.quantidade++;
-        } else {
-            // Se o item não existe, adicione-o ao carrinho com quantidade 1
-            cart.push({ nome: nomeProduto, preço: preço, quantidade: 1 });
+            const condensadoCheckbox = document.getElementById(`condensado${nomeProduto[5]}`);
+            if (condensadoCheckbox.checked) {
+                complementosSelecionados.push({ nome: 'Leite Condensado', preço: parseFloat(condensadoCheckbox.value) });
+            }
+
+            const itemExistente = cart.find(item => item.nome === nomeProduto);
+
+            if (itemExistente) {
+                itemExistente.quantidade++;
+                itemExistente.complementos = complementosSelecionados;
+            } else {
+                cart.push({ nome: nomeProduto, preço: preço, quantidade: 1, complementos: complementosSelecionados });
+            }
+
+            atualizarVisualizaçãoDoCarrinho();
         }
 
-        // Atualize a exibição do carrinho
-        atualizarVisualizaçãoDoCarrinho();
-    }
+        function removerDoCarrinho(indice) {
+            const item = cart[indice];
 
-    // Função para remover um item do carrinho
-    function removerDoCarrinho(indice) {
-        const item = cart[indice];
+            if (item.quantidade > 1) {
+                item.quantidade--;
+            } else {
+                cart.splice(indice, 1);
+            }
 
-        if (item.quantidade > 1) {
-            // Se a quantidade for maior que 1, diminua a quantidade em 1
-            item.quantidade--;
-            total -= item.preço;
-        } else {
-            // Se a quantidade for 1, remova completamente o item do carrinho
-            cart.splice(indice, 1);
-            total -= item.preço;
+            atualizarVisualizaçãoDoCarrinho();
         }
 
-        // Atualize a exibição do carrinho
-        atualizarVisualizaçãoDoCarrinho();
-    }
+        function atualizarVisualizaçãoDoCarrinho() {
+            const elementosItensDoCarrinho = document.getElementById('cart-items');
+            const elementoTotalDoCarrinho = document.getElementById('cart-total');
+            elementosItensDoCarrinho.innerHTML = '';
 
-    // Função para atualizar a exibição do carrinho
-    function atualizarVisualizaçãoDoCarrinho() {
-        const elementosItensDoCarrinho = document.getElementById('cart-items');
-        const elementoTotalDoCarrinho = document.getElementById('cart-total');
+            cart.forEach((item, indice) => {
+                const li = document.createElement('li');
+                li.textContent = `${item.nome} - R$ ${item.preço.toFixed(2)} x ${item.quantidade}`;
 
-        // Limpe o conteúdo atual do carrinho
-        elementosItensDoCarrinho.innerHTML = '';
+                if (item.complementos.length > 0) {
+                    const complementosTexto = item.complementos.map(complemento => `${complemento.nome} - $${complemento.preço}`).join(', ');
+                    li.textContent += ` (${complementosTexto})`;
+                }
 
-        // Adicione os itens do carrinho
-        cart.forEach((item, indice) => {
-            const li = document.createElement('li');
-            li.textContent = `${item.nome} - R$ ${item.preço.toFixed(2)} x ${item.quantidade}`;
-            const botãoRemover = document.createElement('button');
-            botãoRemover.textContent = 'Remover';
-            botãoRemover.onclick = () => removerDoCarrinho(indice);
-            li.appendChild(botãoRemover);
-            elementosItensDoCarrinho.appendChild(li);
-        });
+                const botãoRemover = document.createElement('button');
+                botãoRemover.textContent = 'Remover';
+                botãoRemover.onclick = () => removerDoCarrinho(indice);
+                li.appendChild(botãoRemover);
+                elementosItensDoCarrinho.appendChild(li);
+            });
 
-        // Calcular o total considerando a quantidade
-        const totalCalculado = cart.reduce((acumulador, item) => acumulador + item.preço * item.quantidade, 0);
-        elementoTotalDoCarrinho.textContent = totalCalculado.toFixed(2);
-        total = totalCalculado;
-    }
+            const totalCalculado = cart.reduce((acumulador, item) => {
+                const preçoComplementos = item.complementos.reduce((subtotal, complemento) => subtotal + complemento.preço, 0);
+                return acumulador + (item.preço + preçoComplementos) * item.quantidade;
+            }, 0);
+            elementoTotalDoCarrinho.textContent = totalCalculado.toFixed(2);
+            total = totalCalculado;
+        }
 
-// Função para enviar mensagem via WhatsApp
-function sendWhatsAppMessage(telefone) {
-    const itens = cart.map(item => `${item.nome} - R$ ${item.preço.toFixed(2)} x ${item.quantidade}`).join('%0A');
-    const mensagem = `Olá! Estes são os pedidos do meu carrinho: ${itens}: R$ ${total.toFixed(2)}`;
-
-    // Crie um link do WhatsApp com a mensagem personalizada
-    const linkWhatsApp = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
-    window.open(linkWhatsApp);
-}
-</script>
-
+        function sendWhatsAppMessage(telefone) {
+            const itens = cart.map(item => {
+                let itemTexto = `${item.nome} - R$ ${item.preço.toFixed(2)} x ${item.quantidade}`;
+                if (item.complementos.length > 0) {
+                    const complementosTexto = item.complementos.map(complemento => `${complemento.nome} - $${complemento.preço}`).join(', ');
+                    itemTexto += ` (${complementosTexto})`;
+                }
+                return itemTexto;
+            }).join('%0A');
+            const mensagem = `Olá! Estes são os pedidos do meu carrinho: ${itens}: R$ ${total.toFixed(2)}`;
+            const linkWhatsApp = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
+            window.open(linkWhatsApp);
+        }
+    </script>
 </body>
 </html>
