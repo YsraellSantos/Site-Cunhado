@@ -89,6 +89,10 @@ body {
 /* Media query para dispositivos móveis */
 /* Media query para dispositivos móveis */
 @media (max-width: 796px) {
+    .body{
+        width: 120px;
+        height: 90px;
+    }
     .img1 {
         height: auto; /* Remova a altura fixa para permitir ajuste de tamanho responsivo */
         background-size: cover;
